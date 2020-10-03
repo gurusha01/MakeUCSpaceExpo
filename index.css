@@ -60,6 +60,10 @@ nav a:hover {
 	color: var(--std-blue);
 }
 
+.nav-icons {
+	margin-right: 5px;
+}
+
 .logo {
 	color: #fff;
 }
@@ -126,14 +130,15 @@ nav a:hover {
 }
 
 .landing-typography {
-	margin-left: 450px;
+	margin-left: 400px;
 	width: 400px;
 }
 
 .landing-typography h1 {
-	font-size: 5em;
+	font-size: 4.2em;
 	margin: 0;
 	padding: 0;
+	text-shadow: 0px 0px 5px #FFFFFF;
 }
 
 #changeable--rover {
@@ -156,6 +161,7 @@ nav a:hover {
 	background: -webkit-linear-gradient(#fff, var(--std-blue));
   	-webkit-background-clip: text;
   	-webkit-text-fill-color: transparent;
+	margin-bottom: 15px;
 }
 
 #changeable--rover p {
@@ -164,7 +170,7 @@ nav a:hover {
   	-webkit-text-fill-color: transparent;
 	color: var(--std-blue);
 	transition: 0.2s;
-	margin: 0;
+	margin: 15px 0 15px 0;
 	padding: 0;
 }
 
@@ -172,4 +178,11 @@ nav a:hover {
 	transition: 0.2s;
 	cursor: pointer;
 	margin-top: 10px;
+}
+
+.planet-texture {
+	background: url("./images/mercury_texture.jpg");
+	background-size: cover;
+	border-radius: 15px;
+	padding: 10px 0;
 }

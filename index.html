@@ -17,10 +17,10 @@
 				<!-- Navigation -->
 				<nav>
 					<ul>
-						<li><a href="/nowhere">Rover Simulation</a></li>
-						<li><a href="/nowhere">Rock Launch Simulation</a></li>
-						<li><a href="/nowhere">Spacesuit Override</a></li>
-						<li><a href="/nowhere">Spacesuit Simulation</a></li>
+						<li><a href="/nowhere"><i class="fas fa-satellite nav-icons"></i>Rover Simulation</a></li>
+						<li><a href="/nowhere"><i class="fas fa-space-shuttle nav-icons"></i>Rock Launch Simulation</a></li>
+						<li><a href="/nowhere"><i class="fas fa-cogs nav-icons"></i>Spacesuit Override</a></li>
+						<li><a href="/nowhere"><i class="fas fa-user-astronaut nav-icons"></i>Spacesuit Simulation</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -37,8 +37,7 @@
 						<img class="astronaut" src="./images/spacesuit.png"/>
 
 						<div class="landing-typography">
-							<h1>LOGO</h1>
-							<h2>Control space with your mind</h2>
+							<h1>Control space with your mind</h1>
 							<p>Control space with your mind ontrol space with your mind ontrol space with your mind ontrol space with your mind ontrol space with your mind</p>
 						</div>
 					</section>
@@ -55,7 +54,9 @@
 		<section id="changeable--rover" class="changeable">
 			<h1>ROVER SIMULATION</h1>
 
-			<canvas width="800" height="400"></canvas>
+			<div class="planet-texture">
+				<canvas width="800" height="400"></canvas>
+			</div>
 
 			<p class="exit-rover">EXIT ROVER SIMULATION</p>
 		</section>
@@ -120,6 +121,7 @@
 
 			const canvas = document.querySelector("canvas");
 			const context = canvas.getContext("2d");
+
 			const car = new Image();
 			car.src="./images/rover.png";
 
