@@ -6,6 +6,7 @@ import flask_sijax
 import random
 import string
 import base64
+import math
 from google.cloud import automl_v1beta1 as automl
 
 # path = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
@@ -13,13 +14,13 @@ app = Flask(__name__)
 
 def predict_model(object_with_all_inputs):
     # TODO(developer): Uncomment and set the following variables
-    project_id = 'PROJECT_ID_HERE'
-    compute_region = 'COMPUTE_REGION_HERE'
-    model_display_name = 'MODEL_DISPLAY_NAME_HERE'
+    project_id = 'astrowaves'
+    compute_region = 'us-central1'
+    model_display_name = 'brainwave_directi_20201004012516'
     inputs = object_with_all_inputs #{'value': 3, ...}
 
     client = automl.TablesClient(project=project_id, region=compute_region)
-
+    feature_importance = False
     if feature_importance:
         response = client.predict(
             model_display_name=model_display_name,
@@ -32,14 +33,26 @@ def predict_model(object_with_all_inputs):
         )
 
     print("Prediction results:")
+    correct_label = ""
+    confidence = 0
     for result in response.payload:
-        print(
-            "Predicted class name: {}".format(result.tables.value)
-        )
+        if result.tables.score > confidence:
+            confidence = result.tables.score
+            correct_label = result.tables.value.string_value
+        print("Predicted class name: {}".format(result.tables.value))
         print("Predicted class score: {}".format(result.tables.score))
+
+
+    return [correct_label, confidence]
 
 @app.route('/')
 def show_main():
+    return render_template('index.html')
+
+@app.route('/predict-test')
+def test():
+    obj = {'att':75, 'rlx':90, 'del': 738101, 'the':39584, 'lal':16615, 'hal':35298, 'hbe':24041, 'lbe':9483, 'lga': 5281, 'mga':2970}
+    print(predict_model(obj))
     return render_template('index.html')
 
 @app.route("/predict", methods=["POST"])
@@ -124,9 +137,9 @@ def evaluate():
 
     fin.close()
     #todo predict_model
-    #result = predict_model()
-    return json.dumps({'result':result})
-
+    obj = {'att':attention_level, 'rlx':relax_level, 'del': del_level, 'the':the_level, 'lal':lal_level, 'hal':hal_level, 'hbe':hbe_level, 'lbe':lbe_level, 'lga': lga_level, 'mga':mga_level}
+    result = predict_model(obj)
+    return json.dumps({'move':result[0], 'confidence':round(result[1]*100,2)})
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

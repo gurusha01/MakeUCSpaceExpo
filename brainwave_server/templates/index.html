@@ -57,7 +57,7 @@
 				<canvas width="800" height="400"></canvas>
 			</div>
 
-			<p class="exit-rover">EXIT ROVER SIMULATION</p>
+			<p class="exit-rover"> EXIT ROVER SIMULATION</p> <p>Prediction: <strong><span id='pred'>---</span></strong> Confidence: <strong><span id='conf'>---</span></strong> </p>
 		</section>
 	</body>
 	<script
@@ -78,12 +78,12 @@
 
 			const intervalId = setInterval(() => {
 
-				if (position == 100)
+				if (position >= 100)
 				{
 					clearInterval(intervalId);
 				}
 				else {
-					position++;
+					position+=2;
 					changeableRover.style.left = position + "px";
 				}
 			}, 0.05);
@@ -97,13 +97,13 @@
 
 			const intervalId = setInterval(() => {
 
-				if (position == -1100)
+				if (position <= -1100)
 				{
 					clearInterval(intervalId);
 				}
 				else
 				{
-					position--;
+					position -= 2;
 					changeableRover.style.left = position + "px";
 				}
 			}, 0.05);
@@ -116,9 +116,10 @@
 	<script>
 		window.onload = function()
 		{
+
 			let x = 80;
 			let y = 80;
-			let speed = 5;
+			let speed = 3;
 			let angle = 0;
 			let mod = 0;
 
@@ -128,22 +129,47 @@
 			const car = new Image();
 			car.src="{{ url_for('static', filename='images/rover.png') }}";
 
+			let go = true;
 			window.addEventListener("keydown", (event) => {
-				if(event.keyCode == 87) // W
+				if(event.keyCode == 32 && go) // press the space bar to get a new prediction
 				{
-					mod = 1;
-				}
-				else if(event.keyCode == 83) // S
-				{
-					mod = -1;
-				}
-				else if(event.keyCode == 65) // A
-				{
-					angle -= 5;
-				}
-				else if(event.keyCode == 68) // D
-				{
-					angle += 5;
+					go = false;
+					$.ajax({
+								url: "/predict",
+								type: "POST",
+								data: {},
+								success: function(result)
+								{
+									console.log(`AJAX Success: ${result}`);
+
+									var obj = JSON.parse(result);
+									prediction = document.getElementById("pred")
+									confidence = document.getElementById("conf")
+									prediction.innerHTML = obj.move;
+									confidence.innerHTML = obj.confidence;
+
+									if(obj.move == "down"){
+										angle = 90
+										mod = 1
+									}
+									if(obj.move == "up"){
+										angle = -90
+										mod = 1
+									}
+									if(obj.move == "left"){
+										angle = 180
+										mod = 1
+									}
+									if(obj.move == "right"){
+										angle = 0
+										mod = 1
+									}
+								},
+								error: function(error)
+								{
+									console.log(`AJAX Error: ${error}`);
+								}
+							})
 				}
 			});
 
@@ -151,9 +177,10 @@
 				// Restores the mod property so that a key press that does not use
 				// mod after a key press that USED mod will not change the x and y
 				// positions of the rover (only the angle).
-				if(event.keyCode == 87 || event.keyCode == 83)
+				if(event.keyCode == 32)
 				{
 					mod = 0;
+					go = true;
 				}
 			});
 

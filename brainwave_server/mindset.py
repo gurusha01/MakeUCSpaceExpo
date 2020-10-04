@@ -104,6 +104,6 @@ now = datetime.now().time()
 
 while True:
     time.sleep(2)
-    fin = open("complete_data.txt","w")
-    fin.write(json.dumps(allbrainwaves))
+    # fin = open("complete_data.txt","w")
+    # fin.write(json.dumps(allbrainwaves))
     print(allbrainwaves['att'])
