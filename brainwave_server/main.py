@@ -28,144 +28,94 @@ allbrainwaves = {
                  }
 
 
-
 @app.route('/')
 def show_main():
     return render_template('index.html')
 
+@app.route("/predict", methods=["POST"])
+def evaluate():
+    fin = open("att.txt")
+    attention_level = 0
 
-@flask_sijax.route(app, '/play')
-def play():
+    for each_line in fin:
+        attention_level = int(each_line.rstrip())
 
-    currentIndex = 0
-    
-    def get_brainwave(obj_response,param):
+    fin.close()
 
-        fin = open("att.txt")
-        attention_level = 0
-        
-        for each_line in fin:
-            attention_level = int(each_line.rstrip())
+    fin = open("rlx.txt")
+    relax_level = 0
 
-        fin.close()
-        fin = open("rlx.txt")
+    for each_line in fin:
+        relax_level = int(each_line.rstrip())
 
-        relax_level = 0
-        
-        for each_line in fin:
-            relax_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("del.txt")
 
-        fin = open("del.txt")
+    del_level = 0
+    for each_line in fin:
+        del_level = int(each_line.rstrip())
 
-        del_level = 0
-        for each_line in fin:
-            del_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("the.txt")
 
-        fin = open("the.txt")
+    the_level = 0
+    for each_line in fin:
+        the_level = int(each_line.rstrip())
 
-        the_level = 0
-        for each_line in fin:
-            the_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("lal.txt")
 
-        fin = open("lal.txt")
+    lal_level = 0
+    for each_line in fin:
+        lal_level = int(each_line.rstrip())
 
-        lal_level = 0
-        for each_line in fin:
-            lal_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("hal.txt")
 
-        fin = open("hal.txt")
+    hal_level = 0
+    for each_line in fin:
+        hal_level = int(each_line.rstrip())
 
-        hal_level = 0
-        for each_line in fin:
-            hal_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("lbe.txt")
 
-        fin = open("lbe.txt")
+    lbe_level = 0
+    for each_line in fin:
+        lbe_level = int(each_line.rstrip())
 
-        lbe_level = 0
-        for each_line in fin:
-            lbe_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("hbe.txt")
 
-        fin = open("hbe.txt")
+    hbe_level = 0
+    for each_line in fin:
+        hbe_level = int(each_line.rstrip())
 
-        hbe_level = 0
-        for each_line in fin:
-            hbe_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("lga.txt")
 
-        fin = open("lga.txt")
+    lga_level = 0
+    for each_line in fin:
+        lga_level = int(each_line.rstrip())
 
-        lga_level = 0
-        for each_line in fin:
-            lga_level = int(each_line.rstrip())
+    fin.close()
 
-        fin.close()
+    fin = open("mga.txt")
 
-        fin = open("mga.txt")
+    mga_level = 0
+    for each_line in fin:
+        mga_level = int(each_line.rstrip())
 
-        mga_level = 0
-        for each_line in fin:
-            mga_level = int(each_line.rstrip())
+    fin.close()
+    #todo predict_model
 
-        fin.close()
-
-        allbrainwaves['att'][0].append(attention_level)
-        allbrainwaves['att'][1].append(param)
-
-        allbrainwaves['rlx'][0].append(relax_level)
-        allbrainwaves['rlx'][1].append(param)
-
-        allbrainwaves['del'][0].append(del_level)
-        allbrainwaves['del'][1].append(param)
-
-        allbrainwaves['the'][0].append(the_level)
-        allbrainwaves['the'][1].append(param)
-
-        allbrainwaves['lal'][0].append(lal_level)
-        allbrainwaves['lal'][1].append(param)
-
-        allbrainwaves['hal'][0].append(hal_level)
-        allbrainwaves['hal'][1].append(param)
-
-        allbrainwaves['lbe'][0].append(lbe_level)
-        allbrainwaves['lbe'][1].append(param)
-
-        allbrainwaves['hbe'][0].append(hbe_level)
-        allbrainwaves['hbe'][1].append(param)
-
-        allbrainwaves['lga'][0].append(lga_level)
-        allbrainwaves['lga'][1].append(param)
-
-        allbrainwaves['mga'][0].append(mga_level)
-        allbrainwaves['mga'][1].append(param)
-        
-        # print(allbrainwaves)
-        
-        obj_response.html('#rlx', relax_level)
-        obj_response.html('#att', attention_level)
-
-
-    if g.sijax.is_sijax_request: # Sijax request detected - let Sijax handle it
-        
-        
-        g.sijax.register_callback('get_brainwave', get_brainwave)
-
-        return g.sijax.process_request()
-
-    else:
-        return render_template('mainPage.html')
+    return json.dumps({'result':123})
 
 
 if __name__ == '__main__':
