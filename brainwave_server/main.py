@@ -6,27 +6,37 @@ import flask_sijax
 import random
 import string
 import base64
+from google.cloud import automl_v1beta1 as automl
 
 # path = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
 app = Flask(__name__)
 
-app.config['SIJAX_JSON_URI'] = '/static/js/sijax/json2.js'
+def predict_model(object_with_all_inputs):
+    # TODO(developer): Uncomment and set the following variables
+    project_id = 'PROJECT_ID_HERE'
+    compute_region = 'COMPUTE_REGION_HERE'
+    model_display_name = 'MODEL_DISPLAY_NAME_HERE'
+    inputs = object_with_all_inputs #{'value': 3, ...}
 
-flask_sijax.Sijax(app)
+    client = automl.TablesClient(project=project_id, region=compute_region)
 
-allbrainwaves = {
-                 'att':[ [], [] ],
-                 'rlx':[ [], [] ],
-                 'del':[ [], [] ],
-                 'the':[ [], [] ],
-                 'lal':[ [], [] ],
-                 'hal':[ [], [] ],
-                 'hbe':[ [], [] ],
-                 'lbe':[ [], [] ],
-                 'lga':[ [], [] ],
-                 'mga':[ [], [] ]
-                 }
+    if feature_importance:
+        response = client.predict(
+            model_display_name=model_display_name,
+            inputs=inputs,
+            feature_importance=True,
+        )
+    else:
+        response = client.predict(
+            model_display_name=model_display_name, inputs=inputs
+        )
 
+    print("Prediction results:")
+    for result in response.payload:
+        print(
+            "Predicted class name: {}".format(result.tables.value)
+        )
+        print("Predicted class score: {}".format(result.tables.score))
 
 @app.route('/')
 def show_main():
@@ -114,8 +124,8 @@ def evaluate():
 
     fin.close()
     #todo predict_model
-
-    return json.dumps({'result':123})
+    #result = predict_model()
+    return json.dumps({'result':result})
 
 
 if __name__ == '__main__':
