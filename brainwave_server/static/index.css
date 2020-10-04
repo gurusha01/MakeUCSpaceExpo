@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Expletus+Sans:wght@400;600;700&display=swap');
+
+:root {
+	--light-grey: #dadbdc;
+	--std-blue: #6090c7;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background: url("./images/earth_bg.jpg");
+	background-size: cover;
+	overflow: hidden;
+	font-family: 'Expletus Sans', cursive;
+	background-color: var(--std-blue);
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	margin: 0;
+	padding: 0;
+}
+
+a, a:hover {
+	text-decoration: none;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 24px;
+	padding: 20px;
+}
+
+nav ul {
+	display: flex;
+	align-items: center;
+}
+
+nav ul li {
+	margin-right: 50px;
+}
+
+nav a {
+	color: #fff;
+	transition: 0.2s;
+}
+
+nav a:hover {
+	transform: rotate(2deg);
+	transition: 0.2s;
+	border-bottom: 1px solid var(--std-blue);
+	color: var(--std-blue);
+}
+
+.nav-icons {
+	margin-right: 5px;
+}
+
+.logo {
+	color: #fff;
+}
+
+.main-content {
+	margin-top: 15px;
+}
+
+.changeable-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.left-arrow, .right-arrow {
+	color: var(--light-grey);
+	width: 70px;
+	opacity: 0.9;
+	text-align: center;
+}
+
+.left-arrow:hover, .right-arrow:hover {
+	cursor: pointer;
+}
+
+.left-arrow p, .right-arrow p {
+	margin: 0;
+	margin-bottom: 15px;
+	transition: 0.2s;
+	font-size: 1.2em;
+}
+
+.left-arrow:hover p , .right-arrow:hover p {
+	cursor: pointer;
+	margin-top: 20px;
+	transition: 0.2s;
+}
+
+.left-arrow i, .right-arrow i {
+	font-size: 2em;
+}
+
+.changeable {
+	height: 500px;
+	margin-top: 24px;
+	padding: 0 70px;
+}
+
+#changeable--landing {
+	display: flex;
+	align-items: center;
+	color: var(--light-grey);
+	position: relative;
+}
+
+.astronaut {
+	width: 400px;
+	transform: rotate(10deg);
+	animation: gravity 2s infinite;
+	animation-direction: alternate;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}
+
+@keyframes gravity {
+	from { margin-top: 50px; }
+	to { margin-top: 90px; }
+}
+
+.landing-typography {
+	margin-left: 400px;
+	width: 400px;
+}
+
+.landing-typography h1 {
+	font-size: 4.2em;
+	margin: 0;
+	padding: 0;
+	text-shadow: 0px 0px 5px #FFFFFF;
+}
+
+.landing-typography p {
+	line-height: 1.8em;
+}
+
+#changeable--rover {
+	position: absolute;
+	width: 1000px;
+	height: 500px;
+	left: -1100px;
+	/* left: 0; */
+	top: 50px;
+	padding: 15px 30px 15px 30px;
+	border: 5px solid var(--std-blue);
+	background: rgb(16,86,167);
+	background: linear-gradient(32deg, rgba(16,86,167,1) 0%, rgba(153,0,44,0) 100%);
+	text-align: center;
+	border-radius: 15px;
+}
+
+#changeable--rover h1 {
+	margin: 0;
+	font-size: 1.8em;
+	background: -webkit-linear-gradient(#fff, var(--std-blue));
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+	margin-bottom: 15px;
+}
+
+#changeable--rover p {
+	background: -webkit-linear-gradient(#fff, var(--std-blue));
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+	color: var(--std-blue);
+	transition: 0.2s;
+	margin: 15px 0 15px 0;
+	padding: 0;
+}
+
+#changeable--rover p:hover {
+	transition: 0.2s;
+	cursor: pointer;
+	margin-top: 10px;
+}
+
+.planet-texture {
+	background: url("./images/mercury_texture.jpg");
+	background-size: cover;
+	border-radius: 15px;
+	padding: 10px 0;
+}
